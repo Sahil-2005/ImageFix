@@ -80,7 +80,7 @@ export const ImageProcessor: React.FC<ImageProcessorProps> = ({ tool }) => {
         case 'compress':
           resultBlob = await compressImage(img, {
             mimeType: targetMimeType,
-            targetSizeKB: settings.targetSizeKB,
+            targetSizeKB: settings.targetSize, // 'targetSize' matches registry setting id
             quality: settings.quality,
             onProgress: (p) => setProgress(30 + Math.floor(p * 0.6)), // map 0-100 to 30-90
           });
