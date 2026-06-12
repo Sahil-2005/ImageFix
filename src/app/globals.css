@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
+/* ── Neubrutalist Design Tokens ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors */
+  --color-primary: #FF6B35;
+  --color-secondary: #4ECDC4;
+  --color-accent: #FFE66D;
+  --color-danger: #FF006E;
+  --color-surface: #FFFDF7;
+  --color-surface-alt: #F0F0F0;
+
+  /* Borders & Shadows */
+  --border-width: 3px;
+  --border-color: #000000;
+  --shadow-hard: 4px 4px 0px #000000;
+  --shadow-hard-lg: 6px 6px 0px #000000;
+  --shadow-hard-sm: 2px 2px 0px #000000;
+
+  /* Background patterns */
+  --bg-dots: radial-gradient(circle, #00000010 1px, transparent 1px);
+  --bg-dots-size: 20px 20px;
 }
 
+/* ── Tailwind v4 theme tokens ── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-danger: var(--color-danger);
+  --color-surface: var(--color-surface);
+  --color-surface-alt: var(--color-surface-alt);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ── Base styles ── */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface);
+  color: #1a1a1a;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), system-ui, sans-serif;
+}
+
+/* ── Neubrutalist Utilities ── */
+
+/* Hard border utility: border-3 */
+.border-3 {
+  border-width: 3px;
+}
+
+/* Hard shadow card */
+.shadow-brutal {
+  box-shadow: var(--shadow-hard);
+}
+
+.shadow-brutal-lg {
+  box-shadow: var(--shadow-hard-lg);
+}
+
+.shadow-brutal-sm {
+  box-shadow: var(--shadow-hard-sm);
+}
+
+/* Dotted background pattern */
+.bg-dots {
+  background-image: var(--bg-dots);
+  background-size: var(--bg-dots-size);
+}
+
+/* Transition for hover effects */
+.transition-brutal {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hover-brutal:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-hard-lg);
+}
+
+.hover-brutal:active {
+  transform: translate(0, 0);
+  box-shadow: none;
 }
