@@ -4,6 +4,8 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk, Inter } from 'next/font/google';
 import { BASE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import './globals.css';
 
 // ── Fonts ──
@@ -79,39 +81,12 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[#FFFDF7] text-gray-900 font-[family-name:var(--font-body)]">
-        {/* Header — will be replaced with full Neubrutalist header in Phase 3 */}
-        <header className="border-b-3 border-black bg-white">
-          <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a
-              href="/"
-              className="text-2xl font-extrabold tracking-tight font-[family-name:var(--font-heading)]"
-            >
-              <span className="text-orange-500">Image</span>
-              <span className="text-gray-900">Fix</span>
-            </a>
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-              <a href="/" className="hover:text-orange-500 transition-colors">
-                Home
-              </a>
-              <a href="/about" className="hover:text-orange-500 transition-colors">
-                About
-              </a>
-            </nav>
-          </div>
-        </header>
+        <Header />
 
         {/* Main content — children rendered here */}
         {children}
 
-        {/* Footer — will be replaced with full Neubrutalist footer in Phase 3 */}
-        <footer className="border-t-3 border-black bg-white mt-auto">
-          <div className="max-w-6xl mx-auto px-4 py-6 text-center text-sm text-gray-500">
-            <p>
-              © {new Date().getFullYear()} {SITE_NAME}. All processing happens in
-              your browser — your images never leave your device.
-            </p>
-          </div>
-        </footer>
+        <Footer />
       </body>
     </html>
   );
