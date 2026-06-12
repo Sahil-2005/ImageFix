@@ -71,7 +71,7 @@ export const ImageProcessor: React.FC<ImageProcessorProps> = ({ tool }) => {
       setProgress(30);
 
       let resultBlob: Blob;
-      const targetMimeType = tool.outputFormat === 'original' 
+      const targetMimeType = !tool.outputFormat 
         ? file.type 
         : `image/${tool.outputFormat === 'jpg' ? 'jpeg' : tool.outputFormat}`;
 

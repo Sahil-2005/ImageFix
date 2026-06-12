@@ -60,7 +60,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                 </div>
               );
 
-            case 'boolean':
+            case 'toggle':
               return (
                 <div key={setting.id} className="flex items-center h-full">
                   <Toggle

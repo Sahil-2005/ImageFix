@@ -12,6 +12,7 @@ import { ToolPageContent } from '@/components/seo/ToolPageContent';
 import { InternalLinks } from '@/components/seo/InternalLinks';
 import { ImageProcessor } from '@/components/tools/ImageProcessor';
 import { Container } from '@/components/ui/Container';
+import { AdSlot } from '@/components/ads/AdSlot';
 
 // ★ Required for static export — any slug NOT in generateStaticParams returns 404
 export const dynamicParams = false;
@@ -65,12 +66,20 @@ export default async function ToolPage({
 
   const relatedTools = getRelatedTools(tool);
 
+  // Mid slot logic
+  const showMidSlot = tool.adDensity === 'medium' || tool.adDensity === 'high';
+
   return (
     <>
       <StructuredData tool={tool} />
 
-      <Container className="pt-8 pb-16 space-y-16">
+      <Container className="pt-8 pb-16 space-y-12">
         
+        {/* ── Top Ad Slot (Leaderboard) ── */}
+        <div className="w-full max-w-4xl mx-auto flex justify-center">
+          <AdSlot slotId="TOP_SLOT_001" format="horizontal" className="max-w-[728px] h-[90px]" />
+        </div>
+
         {/* ── Hero & Processor Section ── */}
         <section className="flex flex-col lg:flex-row gap-12 items-start">
           {/* Title & Description */}
@@ -89,11 +98,23 @@ export default async function ToolPage({
           </div>
         </section>
 
+        {/* ── Mid Ad Slot (Rectangle) ── */}
+        {showMidSlot && (
+          <div className="w-full flex justify-center pt-8">
+            <AdSlot slotId="MID_SLOT_002" format="rectangle" className="max-w-[336px] h-[280px]" />
+          </div>
+        )}
+
         {/* ── SEO Content (How-To & FAQs) ── */}
         <ToolPageContent tool={tool} />
 
         {/* ── Internal Links for SEO Juice ── */}
         <InternalLinks relatedTools={relatedTools} />
+
+        {/* ── Bottom Ad Slot (Leaderboard) ── */}
+        <div className="w-full max-w-4xl mx-auto flex justify-center pt-8">
+          <AdSlot slotId="BOTTOM_SLOT_003" format="horizontal" className="max-w-[728px] h-[90px]" />
+        </div>
 
       </Container>
     </>

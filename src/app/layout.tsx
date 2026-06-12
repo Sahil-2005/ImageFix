@@ -3,9 +3,11 @@
 
 import type { Metadata } from 'next';
 import { Space_Grotesk, Inter } from 'next/font/google';
+import Script from 'next/script';
 import { BASE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { AnchorAd } from '@/components/ads/AnchorAd';
 import './globals.css';
 
 // ── Fonts ──
@@ -80,13 +82,39 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} antialiased`}
     >
+      <head>
+        {/* Google AdSense Script */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        
+        {/* Google Analytics (GA4) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+          `}
+        </Script>
+      </head>
       <body className="min-h-screen flex flex-col bg-[#FFFDF7] text-gray-900 font-[family-name:var(--font-body)]">
         <Header />
 
         {/* Main content — children rendered here */}
-        {children}
+        <main className="flex-grow">
+          {children}
+        </main>
 
         <Footer />
+        <AnchorAd />
       </body>
     </html>
   );
