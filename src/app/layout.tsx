@@ -206,7 +206,7 @@ export default function RootLayout({
         <Script
           id="adsbygoogle-init"
           strategy="afterInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9165865063805938"
           crossOrigin="anonymous"
         />
       </head>
