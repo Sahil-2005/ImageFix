@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-
-// Use placeholder publisher ID
-const AD_CLIENT_ID = 'ca-pub-0000000000000000';
+import { ADSENSE_CLIENT_ID } from '@/lib/constants';
 
 export interface AdSlotProps {
   slotId: string;
@@ -40,13 +38,13 @@ export const AdSlot: React.FC<AdSlotProps> = ({
       <span className="absolute top-1 right-2 text-[10px] uppercase text-gray-400 font-bold tracking-widest z-0 pointer-events-none">
         Advertisement
       </span>
-      
+
       {/* The actual ad block */}
       <ins
         ref={adRef}
         className="adsbygoogle relative z-10 block"
         style={{ display: 'block', minWidth: '300px' }}
-        data-ad-client={AD_CLIENT_ID}
+        data-ad-client={ADSENSE_CLIENT_ID}
         data-ad-slot={slotId}
         data-ad-format={format}
         data-full-width-responsive={responsive ? 'true' : 'false'}

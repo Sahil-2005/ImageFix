@@ -13,7 +13,7 @@ export const SITE_TAGLINE = 'Fix Your Images. In Your Browser.';
 export const DEFAULT_OG_IMAGE = '/og-image.png';
 
 /** AdSense publisher ID — replace with your real ID when approved */
-export const ADSENSE_CLIENT_ID = 'ca-pub-XXXXXXXXXXXXXXXX';
+export const ADSENSE_CLIENT_ID = 'ca-pub-9165865063805938';
 
 /** Google Analytics measurement ID */
-export const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+export const GA_MEASUREMENT_ID = 'G-433X62G51V';

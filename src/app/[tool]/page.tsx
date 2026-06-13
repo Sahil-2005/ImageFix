@@ -74,10 +74,10 @@ export default async function ToolPage({
       <StructuredData tool={tool} />
 
       <Container className="pt-8 pb-16 space-y-12">
-        
+
         {/* ── Top Ad Slot (Leaderboard) ── */}
         <div className="w-full max-w-4xl mx-auto flex justify-center">
-          <AdSlot slotId="TOP_SLOT_001" format="horizontal" className="max-w-[728px] h-[90px]" />
+          <AdSlot slotId="5119066512" format="horizontal" className="max-w-[728px] h-[90px]" />
         </div>
 
         {/* ── Hero & Processor Section ── */}
@@ -101,7 +101,7 @@ export default async function ToolPage({
         {/* ── Mid Ad Slot (Rectangle) ── */}
         {showMidSlot && (
           <div className="w-full flex justify-center pt-8">
-            <AdSlot slotId="MID_SLOT_002" format="rectangle" className="max-w-[336px] h-[280px]" />
+            <AdSlot slotId="3061050241" format="rectangle" className="max-w-[336px] h-[280px]" />
           </div>
         )}
 
@@ -113,7 +113,7 @@ export default async function ToolPage({
 
         {/* ── Bottom Ad Slot (Leaderboard) ── */}
         <div className="w-full max-w-4xl mx-auto flex justify-center pt-8">
-          <AdSlot slotId="BOTTOM_SLOT_003" format="horizontal" className="max-w-[728px] h-[90px]" />
+          <AdSlot slotId="9254881942" format="horizontal" className="max-w-[728px] h-[90px]" />
         </div>
 
       </Container>

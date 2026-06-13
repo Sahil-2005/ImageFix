@@ -125,7 +125,7 @@ import type { Metadata } from 'next';
 import { Space_Grotesk, Inter } from 'next/font/google';
 import Script from 'next/script'; // Clean Next.js script component
 import { GoogleAnalytics } from '@next/third-parties/google'; // Optimized GA4 Component
-import { BASE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants';
+import { BASE_URL, SITE_NAME, SITE_DESCRIPTION, ADSENSE_CLIENT_ID } from '@/lib/constants';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { AnchorAd } from '@/components/ads/AnchorAd';
@@ -202,13 +202,12 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} antialiased`}
     >
       <head>
-        {/* Google AdSense Script - Handled via Next.js Script for speed */}
-        <Script
-          id="adsbygoogle-init"
-          strategy="afterInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9165865063805938"
+        {/* Google AdSense Script - Native HTML to avoid data-nscript errors */}
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
           crossOrigin="anonymous"
-        />
+        ></script>
       </head>
       <body className="min-h-screen flex flex-col bg-[#FFFDF7] text-gray-900 font-[family-name:var(--font-body)]">
         <Header />

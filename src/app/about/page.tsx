@@ -86,6 +86,27 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Contact Us */}
+        <section>
+          <h2 className="text-3xl font-extrabold font-[family-name:var(--font-heading)] mb-6 text-gray-900 border-b-4 border-black pb-2 inline-block">
+            Contact Us
+          </h2>
+          <div className="prose prose-lg prose-gray max-w-none text-gray-700 font-medium leading-relaxed space-y-4">
+            <p>
+              Have a question, feature request, or need to report a bug? We’d love to hear from you. For any support or business inquiries, please reach out to us via email.
+            </p>
+            <div className="bg-surface-alt border-3 border-black p-5 my-6 inline-block shadow-brutal-sm">
+              <span className="font-bold text-gray-900 uppercase tracking-widest text-sm block mb-1">Direct Support</span>
+              <a href="mailto:support@imagefix.online" className="text-primary hover:text-gray-900 hover:underline font-extrabold text-2xl transition-colors">
+                support@imagefix.online
+              </a>
+            </div>
+            <p className="text-sm italic">
+              Note: We aim to respond to all inquiries within 24-48 hours.
+            </p>
+          </div>
+        </section>
+
       </div>
     </Container>
   );
