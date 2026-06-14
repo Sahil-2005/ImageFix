@@ -47,6 +47,38 @@ export interface FAQ {
   answer: string;
 }
 
+/** Compliance-specific metadata for government/visa document tools */
+export interface ComplianceSpec {
+  /** Exact target dimensions in pixels */
+  targetWidth: number;
+  targetHeight: number;
+  
+  /** File size constraints in KB */
+  minSizeKB: number;
+  maxSizeKB: number;
+  
+  /** Required background color */
+  backgroundColor: 'white' | 'light' | 'cream' | 'any';
+  
+  /** Country code (ISO 3166-1 alpha-2) */
+  country: string;
+  
+  /** Category: 'exam' | 'passport' | 'visa' | 'identity' | 'signature' */
+  docType: 'exam' | 'passport' | 'visa' | 'identity' | 'signature';
+  
+  /** Official source URL for the requirement */
+  officialSource?: string;
+  
+  /** DPI requirement if specified */
+  requiredDPI?: number;
+  
+  /** Physical dimensions (for display) */
+  physicalSize?: string; // e.g., "3.5 × 4.5 cm" or "2 × 2 inches"
+  
+  /** Additional rules specific to this document */
+  specialRules?: string[];
+}
+
 /** Complete tool definition — the single source of truth */
 export interface ToolDefinition {
   // ── Routing ──
@@ -73,4 +105,18 @@ export interface ToolDefinition {
 
   // ── Ad Config ──
   adDensity: 'low' | 'medium' | 'high'; // Controls number of ad slots
+
+  // ── Compliance Metadata ──
+  /** Compliance metadata (only for government/visa tools) */
+  compliance?: ComplianceSpec;
+  
+  /** Long-form content sections for SEO depth */
+  seoContent?: {
+    /** Specification table data */
+    specTable: { label: string; value: string }[];
+    /** 2-3 paragraph detailed description */
+    detailedDescription: string;
+    /** Tips for avoiding rejection */
+    rejectionTips: string[];
+  };
 }
