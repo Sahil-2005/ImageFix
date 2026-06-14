@@ -76,9 +76,11 @@ export default async function ToolPage({
       <Container className="pt-8 pb-16 space-y-12">
 
         {/* ── Top Ad Slot (Leaderboard) ── */}
+        {/* TEMPORARILY DISABLED: AdSense Layout Policy (Accidental Clicks near processor)
         <div className="w-full max-w-4xl mx-auto flex justify-center">
           <AdSlot slotId="5119066512" format="horizontal" className="max-w-[728px] h-[90px]" />
         </div>
+        */}
 
         {/* ── Hero & Processor Section ── */}
         <section className="flex flex-col lg:flex-row gap-12 items-start">
@@ -99,11 +101,13 @@ export default async function ToolPage({
         </section>
 
         {/* ── Mid Ad Slot (Rectangle) ── */}
+        {/* TEMPORARILY DISABLED: AdSense Layout Policy
         {showMidSlot && (
           <div className="w-full flex justify-center pt-8">
             <AdSlot slotId="3061050241" format="rectangle" className="max-w-[336px] h-[280px]" />
           </div>
         )}
+        */}
 
         {/* ── SEO Content (How-To & FAQs) ── */}
         <ToolPageContent tool={tool} />
