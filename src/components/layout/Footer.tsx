@@ -56,15 +56,15 @@ export const Footer: React.FC = () => {
             <Link href="/about" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
               About Us
             </Link>
-            <Link href="/about" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
+            <Link href="/privacy-policy" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
               Privacy Policy
             </Link>
-            <Link href="/about" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
+            <Link href="/terms" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
               Terms of Service
             </Link>
-            <a href="mailto:support@imagefix.online" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
-              support@imagefix.online
-            </a>
+            <Link href="/contact" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
+              Contact Us
+            </Link>
           </div>
 
         </div>

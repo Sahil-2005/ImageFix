@@ -129,6 +129,7 @@ import { BASE_URL, SITE_NAME, SITE_DESCRIPTION, ADSENSE_CLIENT_ID } from '@/lib/
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { AnchorAd } from '@/components/ads/AnchorAd';
+import { CookieConsent } from '@/components/ui/CookieConsent';
 import './globals.css';
 
 // ── Fonts ──
@@ -219,6 +220,7 @@ export default function RootLayout({
 
         <Footer />
         <AnchorAd />
+        <CookieConsent />
 
         {/* Natively Optimized Google Analytics 4 */}
         <GoogleAnalytics gaId="G-QMVZNE7FR1" />
