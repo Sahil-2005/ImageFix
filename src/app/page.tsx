@@ -64,6 +64,9 @@ export default function Home() {
             const categoryTools = TOOLS.filter(
               (t) => t.category === category.id
             );
+            
+            if (categoryTools.length === 0) return null;
+
             return (
               <Card key={category.id} hoverable className="flex flex-col h-full border-4">
                 <div className="text-5xl mb-4 bg-surface-alt w-16 h-16 flex items-center justify-center border-2 border-black shadow-brutal-sm">

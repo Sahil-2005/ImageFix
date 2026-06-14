@@ -4,6 +4,7 @@
 
 import type { ToolDefinition } from './types';
 import { COMPLIANCE_TOOLS } from './complianceTools';
+import { GENERATED_TOOLS } from './generatedTools';
 
 const GENERIC_TOOLS: ToolDefinition[] = [
   // ─────────────────────────────────────────────
@@ -425,7 +426,7 @@ const GENERIC_TOOLS: ToolDefinition[] = [
   },
 ];
 
-export const TOOLS: ToolDefinition[] = [...GENERIC_TOOLS, ...COMPLIANCE_TOOLS];
+export const TOOLS: ToolDefinition[] = [...GENERIC_TOOLS, ...COMPLIANCE_TOOLS, ...GENERATED_TOOLS];
 
 // ─────────────────────────────────────────────
 // LOOKUP HELPERS
