@@ -18,11 +18,25 @@ export function CookieConsent() {
     setIsVisible(false);
   };
 
+  const closeCookies = () => {
+    localStorage.setItem('cookie_consent', 'dismissed');
+    setIsVisible(false);
+  };
+
   if (!isVisible) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t-4 border-black p-4 md:p-6 z-[100] shadow-[0_-4px_0_rgba(0,0,0,1)]">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* Close Cross */}
+      <button 
+        onClick={closeCookies}
+        className="absolute top-2 right-2 md:top-4 md:right-4 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-100 rounded-full transition-colors font-bold text-xl"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 pr-6">
         <div className="text-gray-900 font-medium text-sm md:text-base leading-relaxed flex-1">
           <strong>We value your privacy.</strong> We use cookies to personalize content and ads, provide social media features, and analyze our traffic. Third-party vendors, including Google, use cookies to serve ads based on your prior visits. By using our site, you consent to our use of cookies. 
           <br className="hidden md:block" />
