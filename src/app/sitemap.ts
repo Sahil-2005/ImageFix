@@ -47,7 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Dynamic tool pages from registry
   const toolPages: MetadataRoute.Sitemap = TOOLS.map((tool) => ({
-    url: `${BASE_URL}/${tool.slug}`,
+    url: `${BASE_URL}/${tool.category}/${tool.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.8,
@@ -55,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Dynamic category pages
   const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
-    url: `${BASE_URL}/category/${cat.id}`,
+    url: `${BASE_URL}/${cat.id}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.6,

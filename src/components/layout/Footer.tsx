@@ -34,16 +34,16 @@ export const Footer: React.FC = () => {
             <h3 className="font-bold uppercase tracking-widest text-sm text-gray-900 border-b-2 border-black pb-1 inline-block w-max">
               Popular Tools
             </h3>
-            <Link href="/compress-image-to-50kb" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
+            <Link href="/compress-images/compress-image-to-50kb" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
               Compress to 50KB
             </Link>
-            <Link href="/convert-png-to-webp" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
+            <Link href="/convert-formats/convert-png-to-webp" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
               PNG to WebP
             </Link>
-            <Link href="/resize-image-to-1920x1080" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
+            <Link href="/resize-and-scale/resize-image-to-1920x1080" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
               Resize to 1080p
             </Link>
-            <Link href="/convert-jpg-to-webp" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
+            <Link href="/convert-formats/convert-jpg-to-webp" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
               JPG to WebP
             </Link>
           </div>

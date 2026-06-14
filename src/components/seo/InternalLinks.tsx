@@ -16,7 +16,7 @@ export const InternalLinks: React.FC<{ relatedTools: ToolDefinition[] }> = ({ re
         {relatedTools.map((related) => (
           <Link
             key={related.slug}
-            href={`/${related.slug}`}
+            href={`/${related.category}/${related.slug}`}
             className="block group outline-none"
           >
             <Card hoverable className="h-full flex flex-col justify-between group-focus-visible:ring-4 group-focus-visible:ring-primary group-focus-visible:ring-offset-2">

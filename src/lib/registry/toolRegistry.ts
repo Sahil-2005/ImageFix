@@ -35,7 +35,7 @@ const GENERIC_TOOLS: ToolDefinition[] = [
       'image compressor 50kb',
       'compress photo to 50kb online',
     ],
-    category: 'compress',
+    category: 'compress-images',
     heroDescription:
       'Instantly reduce any image to 50KB or less — perfect for email attachments, form uploads, and web optimization. Your images never leave your browser.',
     howToSteps: [
@@ -94,7 +94,7 @@ const GENERIC_TOOLS: ToolDefinition[] = [
       'image compressor 100kb',
       'compress photo to 100kb online free',
     ],
-    category: 'compress',
+    category: 'compress-images',
     heroDescription:
       'Quickly shrink any image to 100KB — ideal for online forms, job applications, and website uploads. Processing happens entirely in your browser.',
     howToSteps: [
@@ -148,7 +148,7 @@ const GENERIC_TOOLS: ToolDefinition[] = [
       'photo compressor 20kb',
       'compress image under 20kb',
     ],
-    category: 'compress',
+    category: 'compress-images',
     heroDescription:
       'Compress any image to 20KB or less for passport applications, ID card uploads, and strict file limits. 100% private — no server uploads.',
     howToSteps: [
@@ -207,7 +207,7 @@ const GENERIC_TOOLS: ToolDefinition[] = [
       'png to webp online',
       'change png to webp free',
     ],
-    category: 'convert',
+    category: 'convert-formats',
     heroDescription:
       'Transform PNG files to modern WebP format for smaller file sizes and faster page loads. All processing happens locally in your browser.',
     howToSteps: [
@@ -268,7 +268,7 @@ const GENERIC_TOOLS: ToolDefinition[] = [
       'png to jpeg online',
       'change png to jpg free',
     ],
-    category: 'convert',
+    category: 'convert-formats',
     heroDescription:
       'Convert PNG screenshots and graphics to universally compatible JPG format. Dramatically reduce file sizes for sharing and uploads.',
     howToSteps: [
@@ -324,7 +324,7 @@ const GENERIC_TOOLS: ToolDefinition[] = [
       'jpeg to webp online',
       'convert jpeg to webp free',
     ],
-    category: 'convert',
+    category: 'convert-formats',
     heroDescription:
       'Convert your JPG photos to WebP — the modern image format that delivers 25-35% smaller files with identical visual quality. Runs entirely in your browser.',
     howToSteps: [
@@ -396,7 +396,7 @@ const GENERIC_TOOLS: ToolDefinition[] = [
       'image resizer 1920x1080',
       'make image 1920x1080 pixels',
     ],
-    category: 'resize',
+    category: 'resize-and-scale',
     heroDescription:
       'Resize any image to Full HD resolution (1920×1080) instantly. Perfect for wallpapers, presentations, and social media banners.',
     howToSteps: [

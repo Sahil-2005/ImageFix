@@ -63,13 +63,13 @@ export const Header: React.FC = () => {
                     </h3>
                     <ul className="space-y-4">
                       <li>
-                        <Link href="/compress-image-to-50kb" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/compress-images/compress-image-to-50kb" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="font-bold text-gray-900 group-hover:text-primary transition-colors">Compress Image</div>
                           <div className="text-sm font-medium text-gray-500">Shrink size, keep quality</div>
                         </Link>
                       </li>
                       <li>
-                        <Link href="/compress-image-to-20kb" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/compress-images/compress-image-to-20kb" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="font-bold text-gray-900 group-hover:text-primary transition-colors">Extreme Compress</div>
                           <div className="text-sm font-medium text-gray-500">Under 20KB for portals</div>
                         </Link>
@@ -84,7 +84,7 @@ export const Header: React.FC = () => {
                     </h3>
                     <ul className="space-y-4">
                       <li>
-                        <Link href="/resize-image-to-1920x1080" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/resize-and-scale/resize-image-to-1920x1080" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">Resize Image</div>
                           <div className="text-sm font-medium text-gray-500">Exact px or preset bounds</div>
                         </Link>
@@ -102,19 +102,19 @@ export const Header: React.FC = () => {
                     </h3>
                     <ul className="space-y-4">
                       <li>
-                        <Link href="/convert-png-to-webp" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/convert-formats/convert-png-to-webp" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="font-bold text-gray-900 group-hover:text-orange-500 transition-colors">PNG to WebP</div>
                           <div className="text-sm font-medium text-gray-500">Modern web format</div>
                         </Link>
                       </li>
                       <li>
-                        <Link href="/convert-png-to-jpg" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/convert-formats/convert-png-to-jpg" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="font-bold text-gray-900 group-hover:text-orange-500 transition-colors">PNG to JPG</div>
                           <div className="text-sm font-medium text-gray-500">Universal compatibility</div>
                         </Link>
                       </li>
                       <li>
-                        <Link href="/convert-jpg-to-webp" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/convert-formats/convert-jpg-to-webp" className="group block" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="font-bold text-gray-900 group-hover:text-orange-500 transition-colors">JPG to WebP</div>
                           <div className="text-sm font-medium text-gray-500">Save bandwidth</div>
                         </Link>
@@ -132,7 +132,7 @@ export const Header: React.FC = () => {
                     </h3>
                     <ul className="space-y-5">
                       <li>
-                        <Link href="/upsc-photo-resize" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/indian-exams/upsc-photo-resize" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="w-8 h-8 flex items-center justify-center border-2 border-black bg-white shadow-[2px_2px_0px_#000] text-sm group-hover:bg-primary group-hover:text-white transition-colors">🇮🇳</div>
                           <div>
                             <div className="font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight">UPSC Formatter</div>
@@ -141,7 +141,7 @@ export const Header: React.FC = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/ssc-cgl-photo-resize" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/indian-exams/ssc-chsl-photo" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="w-8 h-8 flex items-center justify-center border-2 border-black bg-white shadow-[2px_2px_0px_#000] text-sm group-hover:bg-primary group-hover:text-white transition-colors">📝</div>
                           <div>
                             <div className="font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight">SSC Resizer</div>
@@ -150,7 +150,7 @@ export const Header: React.FC = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/pan-card-photo-nsdl" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/indian-id-documents/pan-card-uti-photo" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="w-8 h-8 flex items-center justify-center border-2 border-black bg-white shadow-[2px_2px_0px_#000] text-sm group-hover:bg-primary group-hover:text-white transition-colors">🆔</div>
                           <div>
                             <div className="font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight">PAN Card Photo</div>
@@ -159,7 +159,7 @@ export const Header: React.FC = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/us-ds160-visa-photo" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/visas/schengen-visa-photo" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="w-8 h-8 flex items-center justify-center border-2 border-black bg-white shadow-[2px_2px_0px_#000] text-sm group-hover:bg-primary group-hover:text-white transition-colors">🇺🇸</div>
                           <div>
                             <div className="font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight">US Visa Photo</div>
@@ -168,7 +168,7 @@ export const Header: React.FC = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/uk-passport-photo-resize" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
+                        <Link href="/passports/uk-passport-photo" className="group flex gap-3 items-center" onClick={() => setIsMegaMenuOpen(false)}>
                           <div className="w-8 h-8 flex items-center justify-center border-2 border-black bg-white shadow-[2px_2px_0px_#000] text-sm group-hover:bg-primary group-hover:text-white transition-colors">🇬🇧</div>
                           <div>
                             <div className="font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight">UK Passport</div>
@@ -188,15 +188,15 @@ export const Header: React.FC = () => {
 
         {/* Center: Quick Links (Desktop) */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/compress-image-to-50kb" className="font-bold text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2">
+          <Link href="/compress-images/compress-image-to-50kb" className="font-bold text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
             Images
           </Link>
-          <Link href="/upsc-photo-resize" className="font-bold text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2">
+          <Link href="/indian-exams/upsc-photo-resize" className="font-bold text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
             Exam Forms
           </Link>
-          <Link href="/us-ds160-visa-photo" className="font-bold text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2">
+          <Link href="/visas/schengen-visa-photo" className="font-bold text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
             Visas & Passports
           </Link>
@@ -205,7 +205,7 @@ export const Header: React.FC = () => {
         {/* Right Side: CTA & Mobile Hamburger */}
         <div className="flex items-center gap-4 relative z-50 bg-white md:bg-transparent">
           <Link 
-            href="/compress-image-to-50kb" 
+            href="/compress-images/compress-image-to-50kb" 
             className="hidden sm:flex bg-primary text-white font-extrabold px-6 py-2 border-4 border-black shadow-[4px_4px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all whitespace-nowrap items-center gap-2 rounded-sm"
           >
             Try Free <span className="text-xl leading-none">➔</span>
@@ -232,39 +232,39 @@ export const Header: React.FC = () => {
             <div className="space-y-4">
               <h3 className="font-extrabold text-primary uppercase tracking-widest text-sm border-b-2 border-black pb-2">Optimize & Modify</h3>
               <div className="grid grid-cols-1 gap-3">
-                <Link href="/compress-image-to-50kb" className="font-bold text-lg p-3 border-2 border-black bg-accent/10 active:bg-accent" onClick={toggleMobileMenu}>Compress Image</Link>
-                <Link href="/resize-image-to-1920x1080" className="font-bold text-lg p-3 border-2 border-black bg-accent/10 active:bg-accent" onClick={toggleMobileMenu}>Resize Image</Link>
+                <Link href="/compress-images/compress-image-to-50kb" className="font-bold text-lg p-3 border-2 border-black bg-accent/10 active:bg-accent" onClick={toggleMobileMenu}>Compress Image</Link>
+                <Link href="/resize-and-scale/resize-image-to-1920x1080" className="font-bold text-lg p-3 border-2 border-black bg-accent/10 active:bg-accent" onClick={toggleMobileMenu}>Resize Image</Link>
               </div>
             </div>
 
             <div className="space-y-4">
               <h3 className="font-extrabold text-orange-500 uppercase tracking-widest text-sm border-b-2 border-black pb-2">Convert</h3>
               <div className="grid grid-cols-1 gap-3">
-                <Link href="/convert-png-to-webp" className="font-bold text-lg p-3 border-2 border-black bg-orange-50 active:bg-orange-100" onClick={toggleMobileMenu}>PNG to WebP</Link>
-                <Link href="/convert-png-to-jpg" className="font-bold text-lg p-3 border-2 border-black bg-orange-50 active:bg-orange-100" onClick={toggleMobileMenu}>PNG to JPG</Link>
+                <Link href="/convert-formats/convert-png-to-webp" className="font-bold text-lg p-3 border-2 border-black bg-orange-50 active:bg-orange-100" onClick={toggleMobileMenu}>PNG to WebP</Link>
+                <Link href="/convert-formats/convert-png-to-jpg" className="font-bold text-lg p-3 border-2 border-black bg-orange-50 active:bg-orange-100" onClick={toggleMobileMenu}>PNG to JPG</Link>
               </div>
             </div>
 
             <div className="space-y-4">
               <h3 className="font-extrabold text-gray-900 uppercase tracking-widest text-sm border-b-2 border-black pb-2">Exam & Gov Forms</h3>
               <div className="grid grid-cols-1 gap-3">
-                <Link href="/upsc-photo-resize" className="font-bold text-lg p-3 border-2 border-black bg-gray-50 active:bg-gray-100 flex items-center justify-between" onClick={toggleMobileMenu}>
+                <Link href="/indian-exams/upsc-photo-resize" className="font-bold text-lg p-3 border-2 border-black bg-gray-50 active:bg-gray-100 flex items-center justify-between" onClick={toggleMobileMenu}>
                   UPSC Formatter <span className="text-2xl">🇮🇳</span>
                 </Link>
-                <Link href="/ssc-cgl-photo-resize" className="font-bold text-lg p-3 border-2 border-black bg-gray-50 active:bg-gray-100 flex items-center justify-between" onClick={toggleMobileMenu}>
+                <Link href="/indian-exams/ssc-chsl-photo" className="font-bold text-lg p-3 border-2 border-black bg-gray-50 active:bg-gray-100 flex items-center justify-between" onClick={toggleMobileMenu}>
                   SSC Resizer <span className="text-2xl">📝</span>
                 </Link>
-                <Link href="/us-ds160-visa-photo" className="font-bold text-lg p-3 border-2 border-black bg-gray-50 active:bg-gray-100 flex items-center justify-between" onClick={toggleMobileMenu}>
+                <Link href="/visas/schengen-visa-photo" className="font-bold text-lg p-3 border-2 border-black bg-gray-50 active:bg-gray-100 flex items-center justify-between" onClick={toggleMobileMenu}>
                   US Visa Photo <span className="text-2xl">🇺🇸</span>
                 </Link>
-                <Link href="/uk-passport-photo-resize" className="font-bold text-lg p-3 border-2 border-black bg-gray-50 active:bg-gray-100 flex items-center justify-between" onClick={toggleMobileMenu}>
+                <Link href="/passports/uk-passport-photo" className="font-bold text-lg p-3 border-2 border-black bg-gray-50 active:bg-gray-100 flex items-center justify-between" onClick={toggleMobileMenu}>
                   UK Passport <span className="text-2xl">🇬🇧</span>
                 </Link>
               </div>
             </div>
 
             <Link 
-              href="/compress-image-to-50kb" 
+              href="/compress-images/compress-image-to-50kb" 
               className="flex justify-center items-center gap-2 w-full bg-primary text-white font-extrabold uppercase px-6 py-4 border-4 border-black shadow-[4px_4px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] rounded-sm"
               onClick={toggleMobileMenu}
             >

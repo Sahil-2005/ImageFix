@@ -19,14 +19,14 @@ export const dynamicParams = false;
 
 // ★ Generate all tool pages at build time from the registry
 export function generateStaticParams() {
-  return TOOLS.map((tool) => ({ tool: tool.slug }));
+  return TOOLS.map((tool) => ({ category: tool.category, tool: tool.slug }));
 }
 
 // ★ Dynamic SEO metadata per tool
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ tool: string }>;
+  params: Promise<{ category: string; tool: string }>;
 }): Promise<Metadata> {
   const { tool: slug } = await params;
   const tool = getToolBySlug(slug);
@@ -39,7 +39,7 @@ export async function generateMetadata({
     openGraph: {
       title: tool.title,
       description: tool.metaDescription,
-      url: `${BASE_URL}/${tool.slug}`,
+      url: `${BASE_URL}/${tool.category}/${tool.slug}`,
       siteName: SITE_NAME,
       type: 'website',
     },
@@ -49,7 +49,7 @@ export async function generateMetadata({
       description: tool.metaDescription,
     },
     alternates: {
-      canonical: `${BASE_URL}/${tool.slug}`,
+      canonical: `${BASE_URL}/${tool.category}/${tool.slug}`,
     },
   };
 }
@@ -58,7 +58,7 @@ export async function generateMetadata({
 export default async function ToolPage({
   params,
 }: {
-  params: Promise<{ tool: string }>;
+  params: Promise<{ category: string; tool: string }>;
 }) {
   const { tool: slug } = await params;
   const tool = getToolBySlug(slug);

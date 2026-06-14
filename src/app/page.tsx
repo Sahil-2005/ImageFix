@@ -29,12 +29,12 @@ export default function Home() {
               <strong className="text-black bg-accent px-2 leading-loose">100% free. 100% private.</strong>
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/compress-image-to-50kb">
+              <Link href="/compress-images/compress-image-to-50kb">
                 <Button variant="primary" className="text-xl py-4 px-8">
                   Compress an Image
                 </Button>
               </Link>
-              <Link href="/convert-png-to-webp">
+              <Link href="/convert-formats/convert-png-to-webp">
                 <Button variant="outline" className="text-xl py-4 px-8">
                   Convert Formats
                 </Button>
@@ -72,7 +72,11 @@ export default function Home() {
                 <div className="text-5xl mb-4 bg-surface-alt w-16 h-16 flex items-center justify-center border-2 border-black shadow-brutal-sm">
                   {category.icon}
                 </div>
-                <h3 className="text-2xl font-bold mb-2">{category.name}</h3>
+                <Link href={`/${category.id}`} className="group outline-none inline-block">
+                  <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors flex items-center gap-2">
+                    {category.name} <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                  </h3>
+                </Link>
                 <p className="text-gray-600 font-medium mb-6 flex-grow">
                   {category.description}
                 </p>
@@ -80,7 +84,7 @@ export default function Home() {
                   {categoryTools.slice(0, 3).map((tool) => (
                     <Link
                       key={tool.slug}
-                      href={`/${tool.slug}`}
+                      href={`/${tool.category}/${tool.slug}`}
                       className="text-base font-bold text-gray-900 hover:text-primary transition-colors flex items-center justify-between group p-2 -mx-2 hover:bg-accent/10 rounded"
                     >
                       <span>{tool.h1}</span>
@@ -106,7 +110,7 @@ export default function Home() {
             {TOOLS.map((tool) => (
               <Link
                 key={tool.slug}
-                href={`/${tool.slug}`}
+                href={`/${tool.category}/${tool.slug}`}
                 className="block group outline-none"
               >
                 <Card hoverable className="h-full group-focus-visible:ring-4 group-focus-visible:ring-primary">

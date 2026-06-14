@@ -13,15 +13,15 @@ import { Badge } from '@/components/ui/Badge';
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return CATEGORIES.map((cat) => ({ id: cat.id }));
+  return CATEGORIES.map((cat) => ({ category: cat.id }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ category: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
+  const { category: id } = await params;
   const category = getCategoryById(id);
   if (!category) return {};
 
@@ -29,7 +29,7 @@ export async function generateMetadata({
     title: `${category.name} Tools & Formatting — ${SITE_NAME}`,
     description: `Free online tools for ${category.name.toLowerCase()}. ${category.description}`,
     alternates: {
-      canonical: `${BASE_URL}/category/${category.id}`,
+      canonical: `${BASE_URL}/${category.id}`,
     },
   };
 }
@@ -37,9 +37,9 @@ export async function generateMetadata({
 export default async function CategoryPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ category: string }>;
 }) {
-  const { id } = await params;
+  const { category: id } = await params;
   const category = getCategoryById(id);
   if (!category) notFound();
 
@@ -73,7 +73,7 @@ export default async function CategoryPage({
             {tools.map((tool) => (
               <Link
                 key={tool.slug}
-                href={`/${tool.slug}`}
+                href={`/${tool.category}/${tool.slug}`}
                 className="block group outline-none"
               >
                 <Card hoverable className="h-full flex flex-col group-focus-visible:ring-4 group-focus-visible:ring-primary border-4 border-black shadow-[4px_4px_0px_#000]">
@@ -94,6 +94,20 @@ export default async function CategoryPage({
           </div>
         )}
       </Container>
+
+      {/* ── Category SEO Content ── */}
+      {category.seoContent && (
+        <div className="bg-surface-alt border-t-4 border-black w-full">
+          <Container className="py-20 max-w-4xl">
+            <h2 className="text-3xl font-extrabold font-[family-name:var(--font-heading)] mb-6 text-gray-900 border-b-4 border-black pb-2 inline-block">
+              {category.seoContent.h2}
+            </h2>
+            <div className="prose prose-lg text-gray-700 font-medium leading-relaxed">
+              <p>{category.seoContent.content}</p>
+            </div>
+          </Container>
+        </div>
+      )}
     </>
   );
 }

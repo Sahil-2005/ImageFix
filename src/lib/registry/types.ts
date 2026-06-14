@@ -26,6 +26,10 @@ export interface ToolCategory {
   name: string;
   description: string;
   icon: string; // emoji or SVG icon name
+  seoContent?: {
+    h2: string;
+    content: string;
+  };
 }
 
 /** Single setting control exposed in the tool UI */
