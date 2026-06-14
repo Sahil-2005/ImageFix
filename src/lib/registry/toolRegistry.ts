@@ -3,8 +3,9 @@
 // This file feeds generateStaticParams, generateMetadata, sitemap.ts, and all UI.
 
 import type { ToolDefinition } from './types';
+import { COMPLIANCE_TOOLS } from './complianceTools';
 
-export const TOOLS: ToolDefinition[] = [
+const GENERIC_TOOLS: ToolDefinition[] = [
   // ─────────────────────────────────────────────
   // COMPRESSION TOOLS
   // ─────────────────────────────────────────────
@@ -423,6 +424,8 @@ export const TOOLS: ToolDefinition[] = [
     adDensity: 'medium',
   },
 ];
+
+export const TOOLS: ToolDefinition[] = [...GENERIC_TOOLS, ...COMPLIANCE_TOOLS];
 
 // ─────────────────────────────────────────────
 // LOOKUP HELPERS

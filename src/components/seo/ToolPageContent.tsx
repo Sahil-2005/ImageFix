@@ -1,10 +1,32 @@
 import React from 'react';
 import { ToolDefinition } from '@/lib/registry/types';
 import { Card } from '@/components/ui/Card';
+import { SpecTable } from './SpecTable';
+import { RejectionTips } from './RejectionTips';
+import { GovernmentDisclaimer } from './GovernmentDisclaimer';
 
 export const ToolPageContent: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   return (
     <div className="space-y-12">
+      {/* Detailed SEO Description (if compliance) */}
+      {tool.seoContent?.detailedDescription && (
+        <section className="prose prose-lg max-w-none text-gray-800 font-medium leading-relaxed">
+          {tool.seoContent.detailedDescription.split('\n\n').map((paragraph, i) => (
+            <p key={i} className="mb-4">{paragraph}</p>
+          ))}
+        </section>
+      )}
+
+      {/* Specifications Table */}
+      {tool.seoContent?.specTable && (
+        <SpecTable data={tool.seoContent.specTable} />
+      )}
+
+      {/* Rejection Tips */}
+      {tool.seoContent?.rejectionTips && (
+        <RejectionTips tips={tool.seoContent.rejectionTips} />
+      )}
+
       {/* How-To Section */}
       <section>
         <h2 className="text-3xl font-extrabold font-[family-name:var(--font-heading)] mb-6 text-gray-900">
@@ -50,6 +72,9 @@ export const ToolPageContent: React.FC<{ tool: ToolDefinition }> = ({ tool }) =>
           </div>
         </section>
       )}
+
+      {/* Disclaimer */}
+      {tool.compliance && <GovernmentDisclaimer />}
     </div>
   );
 };
