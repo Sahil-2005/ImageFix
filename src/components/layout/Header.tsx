@@ -40,7 +40,7 @@ export const Header: React.FC = () => {
 
           {/* Desktop Mega Menu Trigger */}
           <div 
-            className="hidden md:block relative"
+            className="hidden lg:block relative"
             onMouseEnter={() => setIsMegaMenuOpen(true)}
             onMouseLeave={() => setIsMegaMenuOpen(false)}
           >
@@ -187,7 +187,7 @@ export const Header: React.FC = () => {
         </div>
 
         {/* Center: Quick Links (Desktop) */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden lg:flex items-center gap-6">
           <Link href="/compress-images/compress-image-to-50kb" className="font-bold text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
             Images
@@ -212,7 +212,7 @@ export const Header: React.FC = () => {
           </Link>
           
           <button 
-            className="md:hidden p-2 border-4 border-black bg-white shadow-[2px_2px_0px_#000] font-bold z-50 flex flex-col justify-center items-center w-12 h-12" 
+            className="lg:hidden p-2 border-4 border-black bg-white shadow-[2px_2px_0px_#000] font-bold z-50 flex flex-col justify-center items-center w-12 h-12" 
             onClick={toggleMobileMenu}
             aria-label="Toggle Menu"
           >

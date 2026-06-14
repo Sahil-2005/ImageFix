@@ -153,6 +153,11 @@ export const metadata: Metadata = {
     template: `%s`,
   },
   description: SITE_DESCRIPTION,
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
   keywords: [
     'image compressor',
     'image converter',

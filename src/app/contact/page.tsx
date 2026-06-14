@@ -25,14 +25,14 @@ export default function ContactPage() {
               Have a question about one of our photo compliance tools? Need to request a new country's visa specification or report a bug? We are here to help.
             </p>
             
-            <div className="bg-surface-alt border-4 border-black p-8 shadow-[4px_4px_0px_#000]">
-              <h2 className="text-2xl font-bold text-gray-900 uppercase tracking-widest mb-4">Direct Email Support</h2>
-              <p className="mb-6">
+            <div className="bg-surface-alt border-4 border-black p-5 md:p-8 shadow-[4px_4px_0px_#000]">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 uppercase tracking-widest mb-4">Direct Email Support</h2>
+              <p className="mb-6 text-base md:text-lg">
                 You can reach our support team directly via email. We aim to respond to all inquiries within <strong>24-48 hours</strong> during regular business days.
               </p>
               <a 
                 href="mailto:support@imagefix.online" 
-                className="inline-block bg-primary text-white font-extrabold text-2xl px-6 py-4 border-4 border-black shadow-[4px_4px_0px_#000] hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_#000] transition-all"
+                className="block sm:inline-block text-center bg-primary text-white font-extrabold text-base sm:text-xl md:text-2xl px-4 py-3 md:px-6 md:py-4 border-4 border-black shadow-[4px_4px_0px_#000] hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_#000] transition-all break-all"
               >
                 support@imagefix.online
               </a>
