@@ -206,7 +206,7 @@ export const Header: React.FC = () => {
         <div className="flex items-center gap-4 relative z-50 bg-white md:bg-transparent">
           <Link 
             href="/compress-image-to-50kb" 
-            className="hidden sm:flex bg-[#FF4C29] text-white font-extrabold px-6 py-2 border-4 border-black shadow-[4px_4px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all whitespace-nowrap items-center gap-2 rounded-sm"
+            className="hidden sm:flex bg-primary text-white font-extrabold px-6 py-2 border-4 border-black shadow-[4px_4px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all whitespace-nowrap items-center gap-2 rounded-sm"
           >
             Try Free <span className="text-xl leading-none">➔</span>
           </Link>
@@ -265,7 +265,7 @@ export const Header: React.FC = () => {
 
             <Link 
               href="/compress-image-to-50kb" 
-              className="flex justify-center items-center gap-2 w-full bg-[#FF4C29] text-white font-extrabold uppercase px-6 py-4 border-4 border-black shadow-[4px_4px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] rounded-sm"
+              className="flex justify-center items-center gap-2 w-full bg-primary text-white font-extrabold uppercase px-6 py-4 border-4 border-black shadow-[4px_4px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] rounded-sm"
               onClick={toggleMobileMenu}
             >
               Try For Free <span className="text-xl leading-none">➔</span>

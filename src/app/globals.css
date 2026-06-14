@@ -2,13 +2,13 @@
 
 /* ── Neubrutalist Design Tokens ── */
 :root {
-  /* Colors */
-  --color-primary: #FF6B35;
-  --color-secondary: #4ECDC4;
-  --color-accent: #FFE66D;
-  --color-danger: #FF006E;
-  --color-surface: #FFFDF7;
-  --color-surface-alt: #F0F0F0;
+  /* Colors - Vibrant Violet & Mint Theme */
+  --color-primary: #7C3AED;
+  --color-secondary: #0D9488;
+  --color-accent: #34D399;
+  --color-danger: #E11D48;
+  --color-surface: #FCFAFF;
+  --color-surface-alt: #F3E8FF;
 
   /* Borders & Shadows */
   --border-width: 3px;
@@ -18,7 +18,7 @@
   --shadow-hard-sm: 2px 2px 0px #000000;
 
   /* Background patterns */
-  --bg-dots: radial-gradient(circle, #00000010 1px, transparent 1px);
+  --bg-dots: radial-gradient(circle, #7C3AED20 1px, transparent 1px);
   --bg-dots-size: 20px 20px;
 }
 
