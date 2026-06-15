@@ -125,6 +125,7 @@ import type { Metadata } from 'next';
 import { Space_Grotesk, Inter } from 'next/font/google';
 import Script from 'next/script'; // Clean Next.js script component
 import { GoogleAnalytics } from '@next/third-parties/google'; // Optimized GA4 Component
+import { Analytics } from '@vercel/analytics/react';
 import { BASE_URL, SITE_NAME, SITE_DESCRIPTION, ADSENSE_CLIENT_ID } from '@/lib/constants';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -229,6 +230,7 @@ export default function RootLayout({
 
         {/* Natively Optimized Google Analytics 4 */}
         <GoogleAnalytics gaId="G-QMVZNE7FR1" />
+        <Analytics />
       </body>
     </html>
   );
