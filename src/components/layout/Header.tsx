@@ -200,6 +200,10 @@ export const Header: React.FC = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
             Visas & Passports
           </Link>
+          <Link href="/blog" className="font-bold text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
+            Blog
+          </Link>
         </nav>
 
         {/* Right Side: CTA & Mobile Hamburger */}
@@ -259,6 +263,15 @@ export const Header: React.FC = () => {
                 </Link>
                 <Link href="/passports/uk-passport-photo" className="font-bold text-lg p-3 border-2 border-black bg-gray-50 active:bg-gray-100 flex items-center justify-between" onClick={toggleMobileMenu}>
                   UK Passport <span className="text-2xl">🇬🇧</span>
+                </Link>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="font-extrabold text-purple-600 uppercase tracking-widest text-sm border-b-2 border-black pb-2">Resources</h3>
+              <div className="grid grid-cols-1 gap-3">
+                <Link href="/blog" className="font-bold text-lg p-3 border-2 border-black bg-purple-50 active:bg-purple-100" onClick={toggleMobileMenu}>
+                  Read Our Blog
                 </Link>
               </div>
             </div>

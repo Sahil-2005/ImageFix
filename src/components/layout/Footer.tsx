@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="w-full bg-white border-t-4 border-black mt-auto">
       <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-10">
           
           {/* Brand & Trust */}
           <div className="flex flex-col gap-5 md:col-span-2">
@@ -45,6 +45,22 @@ export const Footer: React.FC = () => {
             </Link>
             <Link href="/convert-formats/convert-jpg-to-webp" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
               JPG to WebP
+            </Link>
+          </div>
+
+          {/* Resources & Blog */}
+          <div className="flex flex-col gap-4">
+            <h3 className="font-bold uppercase tracking-widest text-sm text-gray-900 border-b-2 border-black pb-1 inline-block w-max">
+              Resources
+            </h3>
+            <Link href="/blog" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
+              Read Our Blog
+            </Link>
+            <Link href="/blog/us-visa-photo-requirements-2026" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4 line-clamp-1">
+              US Visa Photo Guide
+            </Link>
+            <Link href="/blog/client-side-image-compression-canvas-web-workers" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4 line-clamp-1">
+              Canvas Compression
             </Link>
           </div>
 
