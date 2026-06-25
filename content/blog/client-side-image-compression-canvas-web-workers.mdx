@@ -1,0 +1,143 @@
+---
+title: "How We Built a Zero-Upload Image Compressor with Canvas and Web Workers"
+description: "A deep-dive into building ImageFix's client-side image compression engine using HTML5 Canvas, OffscreenCanvas, and Web Workers. Real TypeScript code, no server required."
+date: "2026-06-25"
+author: "ImageFix Engineering"
+tags: ["Next.js", "Web Workers", "Canvas", "Client-Side Processing", "Performance"]
+track: "technical"
+---
+
+When we set out to build [ImageFix](https://imagefix.online), we had one strict rule: **Zero server uploads.** 
+
+Traditional image processing tools force users to upload their sensitive files (like passport photos and ID cards) to a remote server. This approach has massive drawbacks: it introduces privacy risks, consumes massive bandwidth, and forces the developer to pay for expensive cloud compute.
+
+In 2026, modern browser APIs are more than capable of handling heavy image processing locally. In this post, we'll break down exactly how we built our client-side compression engine using the HTML5 `Canvas` API and `Web Workers`.
+
+## The Core Concept: HTML5 Canvas
+
+The foundation of our client-side processing is the HTML5 `<canvas>` element. The process is straightforward:
+
+1. Load the user's `File` into an `HTMLImageElement`.
+2. Draw the image onto a `CanvasRenderingContext2D`.
+3. Export the canvas back to a binary `Blob` using `canvas.toBlob()`.
+
+Here is the simplified logic:
+
+```typescript
+export function canvasToBlob(
+  canvas: HTMLCanvasElement, 
+  mimeType: string, 
+  quality?: number
+): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error('Canvas toBlob failed'));
+      },
+      mimeType,
+      quality // e.g. 0.8 for 80% quality
+    );
+  });
+}
+```
+
+This works perfectly for simple format conversions. However, our users often need to hit a specific file size target (e.g., "Compress to exactly 50KB"). To achieve this, we have to use a **binary search algorithm** that repeatedly encodes the canvas at different quality levels until it hits the target size.
+
+Doing this on the main thread is a terrible idea. Encoding a 10-megapixel image blocks the UI thread for hundreds of milliseconds. If you run a binary search loop 7 times, the entire browser tab freezes for several seconds. 
+
+Enter Web Workers.
+
+## Offloading Work with Web Workers and OffscreenCanvas
+
+To keep the UI perfectly smooth at 60 FPS, we moved the binary search compression logic into a Web Worker. Because Web Workers don't have access to the DOM (and therefore cannot access standard `<canvas>` elements), we rely on the `OffscreenCanvas` API.
+
+Here is a look at our actual production `worker.ts` code:
+
+```typescript
+// Listen for messages from the main thread
+self.onmessage = async (e: MessageEvent<WorkerMessage>) => {
+  const { type, id, imageBitmap, mimeType, targetSizeKB } = e.data;
+
+  if (type === 'COMPRESS') {
+    try {
+      // Create an OffscreenCanvas
+      const canvas = new OffscreenCanvas(imageBitmap.width, imageBitmap.height);
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Failed to get OffscreenCanvas context');
+
+      // Draw the ImageBitmap
+      ctx.drawImage(imageBitmap, 0, 0);
+
+      const targetBytes = targetSizeKB * 1024;
+      let minQ = 0.01;
+      let maxQ = 1.0;
+      let bestBlob: Blob | null = null;
+      let bestDiff = Infinity;
+      const MAX_ITERATIONS = 7;
+
+      // Binary search loop
+      for (let i = 0; i < MAX_ITERATIONS; i++) {
+        const midQ = (minQ + maxQ) / 2;
+        
+        // Encode off the main thread!
+        const blob = await canvas.convertToBlob({ type: mimeType, quality: midQ });
+        
+        // Send progress updates back to the UI
+        postResponse({ 
+          id, 
+          type: 'PROGRESS', 
+          progress: Math.round(((i + 1) / MAX_ITERATIONS) * 100) 
+        });
+
+        const diff = Math.abs(blob.size - targetBytes);
+        
+        // Save best so far that is UNDER or equal to target
+        if (blob.size <= targetBytes && diff < bestDiff) {
+          bestBlob = blob;
+          bestDiff = diff;
+        }
+
+        if (blob.size > targetBytes) {
+          maxQ = midQ; // File too large, decrease quality
+        } else {
+          minQ = midQ; // File smaller than target, try higher quality
+        }
+
+        // Break early if we're within 5% of target
+        if (diff / targetBytes < 0.05 && blob.size <= targetBytes) {
+          break;
+        }
+      }
+
+      postResponse({ id, type: 'SUCCESS', blob: bestBlob });
+    } catch (error: any) {
+      postResponse({ id, type: 'ERROR', error: error.message });
+    }
+  }
+};
+```
+
+### Zero-Copy Transfers with ImageBitmap
+
+Notice that we pass an `ImageBitmap` to the worker, not an `HTMLImageElement`. We create this bitmap on the main thread using `createImageBitmap(file)`. 
+
+`ImageBitmap` objects can be transferred to workers using "Transferable Objects." This means the browser hands over ownership of the memory chunk to the worker without duplicating it, avoiding massive memory spikes when handling high-resolution photos on mobile devices.
+
+## The Privacy Benefit
+
+By strictly using client-side Canvas APIs, we achieve a massive secondary benefit: **automatic privacy.**
+
+When an image is drawn to a canvas and exported via `toBlob()`, all EXIF metadata (including GPS coordinates, device information, and timestamps) is naturally stripped away. Our users' sensitive document photos never leave their device, and their location data is scrubbed before they even download the final compressed file.
+
+<ToolCTA 
+  toolName="Try The Engine Live"
+  description="Want to see this Web Worker in action? Try our 50KB compression tool. You'll notice the UI stays perfectly responsive while your image processes instantly."
+  toolUrl="/compress-images/compress-image-to-50kb"
+/>
+
+## Building for the Future
+
+As WebAssembly (WASM) becomes more prevalent, the future of client-side image processing will likely shift toward shipping C/Rust libraries (like libvips or oxipng) directly to the browser for even more efficient encoding (especially for modern formats like AVIF). 
+
+But for standard JPEG and WebP processing today, the native HTML5 Canvas combined with Web Workers provides an incredibly robust, zero-cost, and privacy-first solution.

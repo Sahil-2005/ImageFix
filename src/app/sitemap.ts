@@ -5,6 +5,7 @@ import type { MetadataRoute } from 'next';
 import { TOOLS } from '@/lib/registry/toolRegistry';
 import { CATEGORIES } from '@/lib/registry/categories';
 import { BASE_URL } from '@/lib/constants';
+import { getAllPosts } from '@/lib/blog';
 
 export const dynamic = 'force-static';
 
@@ -61,5 +62,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...toolPages, ...categoryPages];
+  // Blog pages
+  const blogPages: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: now,
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
+
+  const blogIndex: MetadataRoute.Sitemap = [{
+    url: `${BASE_URL}/blog`,
+    lastModified: now,
+    changeFrequency: 'daily' as const,
+    priority: 0.8,
+  }];
+
+  return [...staticPages, ...toolPages, ...categoryPages, ...blogIndex, ...blogPages];
 }
