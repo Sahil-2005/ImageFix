@@ -1,0 +1,140 @@
+---
+title: "Building a Privacy-First Image Tool: Architecture Decisions and Lessons Learned"
+description: "A behind-the-scenes look at how ImageFix was architected for zero server uploads — the technology choices, tradeoffs, and engineering lessons from building a client-side image processing platform."
+date: "2026-06-10"
+author: "Sahil Gawade"
+tags: ["Next.js", "Architecture", "Privacy", "Static Export", "Web Development"]
+track: "technical"
+---
+
+Building ImageFix taught me more about browser APIs, static site architecture, and the privacy landscape of web tooling than almost any other project I have worked on. In this post, I want to share the key architectural decisions that shaped the platform and the lessons I learned along the way.
+
+## The Core Constraint: Zero Server Uploads
+
+The single design decision that drove every other choice was this: **user files must never leave the user's browser.** This was a product decision, not a technical one. Our primary users are uploading passport photos, government ID scans, and exam application photos. These are sensitive documents. The privacy commitment needed to be architecturally guaranteed, not just a policy statement.
+
+This constraint eliminated an entire category of traditional web architectures. No Lambda functions processing uploaded images. No S3 buckets storing temporary files. No third-party image processing APIs (Cloudinary, Imgix, Cloudflare Images). Every one of these approaches requires the image to leave the browser.
+
+The answer was the HTML5 Canvas API combined with Web Workers — a client-side processing pipeline that handles everything inside the browser itself.
+
+## Technology Stack
+
+```
+Framework:    Next.js 15 (App Router)
+Deployment:   Vercel (Static Export — output: 'export')
+Processing:   HTML5 Canvas + OffscreenCanvas + Web Workers
+Analytics:    Vercel Analytics (privacy-first, no cookies)
+Ads:          Google AdSense (after content threshold reached)
+Content:      MDX (blog and documentation)
+```
+
+## Why Static Export?
+
+Choosing `output: 'export'` in Next.js 15 was an important architectural decision with significant tradeoffs.
+
+**Benefits:**
+- Zero server costs (served entirely from CDN edge nodes)
+- Maximum performance (no server-side rendering latency)
+- No backend to maintain, secure, or scale
+- Trivial deployment to Vercel, Netlify, or any static host
+
+**Tradeoffs:**
+- No server-side API routes
+- No server-side data fetching for dynamic content
+- Every page must be statically pre-generated at build time
+- Revalidation requires a new deployment
+
+For a tools site where all logic runs in the browser and all content is in MDX files, static export was the correct choice. Every tool page is pre-rendered with its full SEO metadata at build time, served from the edge in milliseconds, and requires no server to function.
+
+## The Tool Registry Pattern
+
+One of the cleanest architectural decisions was centralising all tool configuration in a single TypeScript file — the **tool registry**.
+
+```typescript
+// Every tool is a ToolDefinition object
+const tool: ToolDefinition = {
+  slug: 'compress-image-to-50kb',
+  action: 'compress',
+  inputFormats: ['jpg', 'jpeg', 'png', 'webp'],
+  settings: [
+    { id: 'targetSize', type: 'number', defaultValue: 50, unit: 'KB' }
+  ],
+  title: 'Compress Image to 50KB — ImageFix',
+  metaDescription: '...',
+  h1: 'Compress Image to 50KB',
+  howToSteps: [...],
+  faqs: [...],
+  compliance: undefined, // or ComplianceSpec for government tools
+  seoContent: { specTable: [...], detailedDescription: '...', rejectionTips: [...] }
+};
+```
+
+This single-source-of-truth approach means:
+- `generateStaticParams` reads from the registry to know which pages to build
+- `generateMetadata` reads from the registry to generate SEO metadata
+- The sitemap reads from the registry to generate `sitemap.xml`
+- The UI reads from the registry to configure the tool processor
+- Analytics reads from the registry to tag events correctly
+
+Adding a new tool requires adding one object to the registry. Everything else — routing, SEO, sitemap, UI — happens automatically.
+
+<ToolCTA
+  toolName="See It In Action"
+  description="The registry-driven architecture means every tool on ImageFix shares the same layout, SEO patterns, and processing engine. Try one of our compression tools to see the result."
+  toolUrl="/compress-images/compress-image-to-50kb"
+/>
+
+## The Binary Search Compression Engine
+
+The most technically interesting part of ImageFix is the compression algorithm. Here is the problem: given a target file size of 50KB, what JPEG quality level should we use?
+
+A naive approach: try quality 70%, check the size, adjust. But "adjust" in which direction? By how much? This guess-and-check approach can take many attempts to converge.
+
+A better approach: **binary search**. 
+
+The quality range is 1–100. Start at 50. If the output is too large, search the lower half (1–49). If too small, search the upper half (51–100). Repeat 7 times.
+
+After 7 iterations, the search space has narrowed from 100 to 100/2^7 = 0.78. We are within less than 1 quality unit of the optimal setting. The algorithm always finds the highest possible quality that fits within the target.
+
+The entire binary search runs inside a Web Worker using OffscreenCanvas, so the UI thread stays completely free:
+
+```typescript
+for (let i = 0; i < 7; i++) {
+  const midQ = (minQ + maxQ) / 2;
+  const blob = await canvas.convertToBlob({ type: 'image/jpeg', quality: midQ });
+  
+  if (blob.size <= targetBytes) {
+    bestBlob = blob;
+    minQ = midQ; // try higher quality
+  } else {
+    maxQ = midQ; // too large, try lower quality
+  }
+}
+```
+
+## Lessons Learned
+
+### 1. OffscreenCanvas Browser Support is Good Enough
+When I started building, I was nervous about OffscreenCanvas support. It was still "experimental" in some browsers. By late 2024, it was fully supported in all major browsers. The gamble paid off.
+
+### 2. ImageBitmap Transfers Are Crucial for Memory
+Without using Transferable ImageBitmap objects, processing a 12MP photo from a modern smartphone causes a noticeable memory spike. The main thread holds a copy, the worker holds a copy — double memory usage. With `transfer: [imageBitmap]`, ownership is fully transferred and there is only ever one copy in memory.
+
+### 3. Static Export + MDX Requires Careful Build Ordering
+With `output: 'export'`, MDX content must be read at build time using `fs.readFileSync`. If you have a lot of posts, build times increase linearly. The solution: a simple caching layer that reads all MDX files once and stores them in memory during the build.
+
+### 4. The Registry Pattern Scales Extremely Well
+Adding the 30th tool to ImageFix took about 15 minutes — the same as adding the 1st. The registry pattern completely eliminated the "each new page requires building a new component" problem.
+
+### 5. AdSense Approval Requires Content Depth
+A surprise lesson: Google AdSense reviewers evaluate the site as a whole, not just the tool functionality. After initially being rejected for "low value content," I realised the tools themselves — while technically impressive — contained very little text that Google's systems could evaluate. Adding detailed how-to guides, spec tables, FAQ sections, and this blog resolved the issue.
+
+## What I Would Do Differently
+
+**Use AVIF instead of WebP for conversion tools:** AVIF achieves 20–30% better compression than WebP, and browser support is now at 91%+. The Canvas API does not yet support AVIF encoding, but WASM-based encoders like `avif.js` make it possible.
+
+**Add a Service Worker for offline support:** Since all processing is local, the entire app could work offline. A Service Worker caching the JavaScript bundles would make it a proper PWA.
+
+**Add batch processing earlier:** The most common feature request from power users is the ability to compress 10–20 images at once. The architecture supports it (just spawn multiple workers), but the UI was not designed for it initially.
+
+ImageFix remains an ongoing project. The architecture continues to evolve, and I document significant changes here on the blog. If you have questions about specific implementation details, reach out through the [contact page](/contact).

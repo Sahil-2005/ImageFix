@@ -1,17 +1,17 @@
 ---
 title: "How We Built a Zero-Upload Image Compressor with Canvas and Web Workers"
 description: "A deep-dive into building ImageFix's client-side image compression engine using HTML5 Canvas, OffscreenCanvas, and Web Workers. Real TypeScript code, no server required."
-date: "2026-06-25"
-author: "ImageFix Engineering"
+date: "2026-05-18"
+author: "Sahil Gawade"
 tags: ["Next.js", "Web Workers", "Canvas", "Client-Side Processing", "Performance"]
 track: "technical"
 ---
 
-When we set out to build [ImageFix](https://imagefix.online), we had one strict rule: **Zero server uploads.** 
+When I set out to build [ImageFix](https://imagefix.online), I had one strict rule: **Zero server uploads.** 
 
 Traditional image processing tools force users to upload their sensitive files (like passport photos and ID cards) to a remote server. This approach has massive drawbacks: it introduces privacy risks, consumes massive bandwidth, and forces the developer to pay for expensive cloud compute.
 
-In 2026, modern browser APIs are more than capable of handling heavy image processing locally. In this post, we'll break down exactly how we built our client-side compression engine using the HTML5 `Canvas` API and `Web Workers`.
+In 2026, modern browser APIs are more than capable of handling heavy image processing locally. In this post, I'll break down exactly how I built the client-side compression engine using the HTML5 `Canvas` API and `Web Workers`.
 
 ## The Core Concept: HTML5 Canvas
 
@@ -50,7 +50,7 @@ Enter Web Workers.
 
 ## Offloading Work with Web Workers and OffscreenCanvas
 
-To keep the UI perfectly smooth at 60 FPS, we moved the binary search compression logic into a Web Worker. Because Web Workers don't have access to the DOM (and therefore cannot access standard `<canvas>` elements), we rely on the `OffscreenCanvas` API.
+To keep the UI perfectly smooth at 60 FPS, I moved the binary search compression logic into a Web Worker. Because Web Workers don't have access to the DOM (and therefore cannot access standard `<canvas>` elements), we rely on the `OffscreenCanvas` API.
 
 Here is a look at our actual production `worker.ts` code:
 
@@ -140,4 +140,4 @@ When an image is drawn to a canvas and exported via `toBlob()`, all EXIF metadat
 
 As WebAssembly (WASM) becomes more prevalent, the future of client-side image processing will likely shift toward shipping C/Rust libraries (like libvips or oxipng) directly to the browser for even more efficient encoding (especially for modern formats like AVIF). 
 
-But for standard JPEG and WebP processing today, the native HTML5 Canvas combined with Web Workers provides an incredibly robust, zero-cost, and privacy-first solution.
+But for standard JPEG and WebP processing today, the native HTML5 Canvas combined with Web Workers provides an incredibly robust, zero-cost, and privacy-first solution. The entire ImageFix codebase, including this engine, is a testament to how much you can accomplish without ever spinning up a backend server.
