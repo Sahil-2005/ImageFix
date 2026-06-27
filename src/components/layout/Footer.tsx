@@ -81,6 +81,9 @@ export const Footer: React.FC = () => {
             <Link href="/contact" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
               Contact Us
             </Link>
+            <Link href="/faq" className="text-gray-600 hover:text-primary font-bold transition-colors w-max hover:underline underline-offset-4">
+              FAQ
+            </Link>
           </div>
 
         </div>

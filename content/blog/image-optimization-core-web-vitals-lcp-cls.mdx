@@ -1,0 +1,159 @@
+---
+title: "Optimising Images for Google Core Web Vitals: LCP, CLS, and File Size"
+description: "How image optimization directly impacts Google's Core Web Vitals scores — LCP, CLS, and INP — with practical techniques to improve every metric without installing complex tools."
+date: "2026-06-18"
+author: "Sahil Gawade"
+tags: ["Core Web Vitals", "LCP", "CLS", "Performance", "SEO", "Web Development"]
+track: "technical"
+---
+
+Google's Core Web Vitals are a set of real-world experience metrics that directly influence your website's search ranking. Of the three primary metrics — Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), and Interaction to Next Paint (INP) — two are directly and significantly affected by how you handle images on your page.
+
+This guide explains exactly how images affect each metric and the specific optimisation techniques that will move the needle on your PageSpeed Insights score.
+
+## Understanding the Three Core Web Vitals
+
+| Metric | What it Measures | Good Threshold |
+|---|---|---|
+| **LCP** | How long until the largest visible element loads | < 2.5 seconds |
+| **CLS** | How much the layout shifts unexpectedly during load | < 0.1 |
+| **INP** | How quickly the page responds to user interactions | < 200ms |
+
+Images primarily affect LCP and CLS. Let's dig into each.
+
+## LCP: Your Largest Image is the Bottleneck
+
+Largest Contentful Paint measures when the largest visible element — typically a hero image, product photo, or banner — becomes visible. On most marketing pages and e-commerce sites, the LCP element is an image.
+
+### Why Images Kill LCP
+
+A 2MB hero image on a mobile connection (average: 10–25 Mbps download) takes 650ms–1,600ms to download alone — before any rendering. Add DNS resolution, server response time, and render time, and your LCP is comfortably over 3 seconds. That is a failing score.
+
+### Image Optimisation Techniques for LCP
+
+**1. Use Next-Gen Formats (WebP)**
+
+Converting your hero image from PNG to WebP typically reduces file size by 25–40%. For a 2MB PNG hero image, this means 1.2–1.5MB instead — saving 400–800ms of download time on mobile.
+
+```html
+<picture>
+  <source srcset="/hero.webp" type="image/webp" />
+  <img src="/hero.png" alt="Hero" width="1920" height="1080" />
+</picture>
+```
+
+<ToolCTA
+  toolName="Convert PNG to WebP"
+  description="Convert your hero image and product photos to WebP. Reduce LCP-critical image sizes by 25–40% instantly."
+  toolUrl="/convert-formats/convert-png-to-webp"
+/>
+
+**2. Compress to Appropriate Quality**
+
+A quality setting of 80–85% for JPEG/WebP is virtually indistinguishable from 100% quality but produces files that are 2–5× smaller. For a 1920×1080 hero image:
+
+- Quality 100%: ~1.8 MB
+- Quality 80%: ~180 KB — the same visual result, 10× smaller file
+
+**3. Use `loading="eager"` and `fetchpriority="high"` for LCP Images**
+
+By default, images below the fold are lazy-loaded. But your hero image (the LCP element) needs to load as fast as possible. Explicitly mark it:
+
+```html
+<img 
+  src="/hero.webp" 
+  loading="eager" 
+  fetchpriority="high"
+  width="1920" 
+  height="1080"
+  alt="Hero image"
+/>
+```
+
+In Next.js, use `priority={true}` on your `<Image>` component for the LCP element.
+
+**4. Use Responsive Images**
+
+Serving a 1920×1080 image to a mobile device with a 390px screen is wasteful. Use `srcset` to serve appropriately sized images:
+
+```html
+<img
+  srcset="/hero-400.webp 400w, /hero-800.webp 800w, /hero-1920.webp 1920w"
+  sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1920px"
+  src="/hero-1920.webp"
+  alt="Hero"
+/>
+```
+
+Next.js does this automatically when you use the `<Image>` component.
+
+## CLS: Images Without Dimensions Shift Your Layout
+
+Cumulative Layout Shift measures unexpected visual movement. The most common cause: images that load without pre-specified dimensions causing content below them to jump down.
+
+### Why This Happens
+
+When an image has no `width` and `height` attributes, the browser doesn't know how much space to reserve. It starts rendering the page, then the image loads and suddenly pushes everything below it downward. This is a jarring experience and a direct CLS penalty.
+
+### The Fix: Always Specify Image Dimensions
+
+```html
+<!-- Bad: no dimensions -->
+<img src="/photo.jpg" alt="Photo" />
+
+<!-- Good: explicit dimensions -->
+<img src="/photo.jpg" width="800" height="600" alt="Photo" />
+```
+
+The browser can calculate the aspect ratio from these dimensions and reserve the correct amount of space before the image loads. The content below never shifts.
+
+**In CSS:** Use `aspect-ratio` to handle responsive images:
+
+```css
+img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+```
+
+**In Next.js:** The `<Image>` component requires `width` and `height` props (or `fill` mode) and automatically prevents CLS.
+
+## INP: Image Processing on the Main Thread
+
+Interaction to Next Paint measures how quickly your page responds to user input (clicks, taps, key presses). Image operations on the main thread — like reading a large image file and drawing it to a canvas — can block the main thread and cause high INP.
+
+This is exactly why ImageFix moves all image processing to **Web Workers**. A binary search compression loop running on the main thread would freeze the browser UI for 500ms–2,000ms, causing a completely failing INP score. Moving it to a Worker keeps the main thread free.
+
+If you are building any image-related tooling, always use Web Workers for processing. The code architecture change is modest; the performance difference is dramatic.
+
+<ToolCTA
+  toolName="Convert JPG to WebP"
+  description="Optimize your website's image assets for better LCP scores. Convert existing JPEG images to WebP and see the PageSpeed Insights improvement."
+  toolUrl="/convert-formats/convert-jpg-to-webp"
+/>
+
+## Practical Core Web Vitals Checklist for Images
+
+- [ ] Hero/banner images converted to WebP
+- [ ] All images compressed to appropriate quality (80–85% for photos)
+- [ ] All images have explicit `width` and `height` attributes
+- [ ] LCP image has `fetchpriority="high"` and `loading="eager"`
+- [ ] Below-fold images have `loading="lazy"`
+- [ ] Responsive `srcset` served for different screen sizes
+- [ ] No image processing happening on the main thread
+
+## Measuring the Impact
+
+After implementing these optimisations, measure using:
+
+- **PageSpeed Insights** (pagespeed.web.dev) — tests a real URL from Google's servers
+- **Chrome DevTools Lighthouse** (F12 → Lighthouse tab) — tests locally
+- **WebPageTest** (webpagetest.org) — advanced waterfall and filmstrip analysis
+- **Google Search Console** — Core Web Vitals report shows real-user data (CrUX data)
+
+A typical result for a page that starts with unoptimised images:
+- Before: LCP 4.2s, CLS 0.24 → Failing
+- After WebP + compression + dimension fix: LCP 1.8s, CLS 0.02 → Passing
+
+These improvements directly affect Google search ranking and, importantly, the user experience that keeps visitors on your site.
