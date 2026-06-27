@@ -29,6 +29,12 @@ export interface ToolCategory {
   seoContent?: {
     h2: string;
     content: string;
+    /** Optional additional paragraphs */
+    additionalParagraphs?: string[];
+    /** Use-case scenarios */
+    useCases?: { title: string; desc: string }[];
+    /** FAQs specific to this category */
+    faqs?: { question: string; answer: string }[];
   };
 }
 

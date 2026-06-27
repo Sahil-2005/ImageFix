@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import { MDXComponents } from '@/components/blog/MDXComponents';
 import { BASE_URL, SITE_NAME } from '@/lib/constants';
@@ -68,8 +69,8 @@ export default async function BlogPostPage({
           }`}>
             {post.track === 'bridge' ? 'Guide' : 'Technical'}
           </span>
-          <time className="text-gray-500 font-bold">
-            {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          <time className="text-gray-500 font-bold" suppressHydrationWarning>
+            {new Date(post.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
           </time>
         </div>
         <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 font-[family-name:var(--font-heading)] leading-tight">
@@ -83,8 +84,16 @@ export default async function BlogPostPage({
         </div>
       </div>
 
-      <article className="prose prose-lg max-w-none prose-headings:font-[family-name:var(--font-heading)] prose-a:text-primary hover:prose-a:text-primary/80 prose-img:border-3 prose-img:border-black prose-img:shadow-brutal-sm">
-        <MDXRemote source={post.content} components={MDXComponents} />
+      <article className="prose prose-lg max-w-none prose-headings:font-[family-name:var(--font-heading)] prose-a:text-primary hover:prose-a:text-primary/80 prose-img:border-4 prose-img:border-black prose-img:shadow-brutal-sm prose-table:border-0 prose-th:text-white prose-th:bg-transparent prose-thead:bg-gray-900">
+        <MDXRemote
+          source={post.content}
+          components={MDXComponents}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+            },
+          }}
+        />
       </article>
       
       <div className="mt-16 pt-8 border-t-4 border-black flex justify-between items-center">

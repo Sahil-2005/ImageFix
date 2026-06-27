@@ -5,8 +5,8 @@ import { BlogCard } from '@/components/blog/BlogCard';
 import { SITE_NAME, BASE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Blog — ' + SITE_NAME,
-  description: 'Technical insights, image optimization guides, and tutorials from the ImageFix team.',
+  title: 'Blog — Image Guides, Compression Tips & Tech Deep-Dives | ' + SITE_NAME,
+  description: 'In-depth guides for UPSC, NEET, GATE, SSC, IBPS, passport, and visa photo requirements. Plus technical articles on client-side image processing with HTML5 Canvas and Web Workers.',
   alternates: {
     canonical: `${BASE_URL}/blog`,
   },

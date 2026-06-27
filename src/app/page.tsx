@@ -2,15 +2,24 @@
 // Homepage — hero section + tool category grid + featured tools
 
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { TOOLS } from '@/lib/registry/toolRegistry';
 import { CATEGORIES } from '@/lib/registry/categories';
-import { SITE_TAGLINE } from '@/lib/constants';
+import { BASE_URL, SITE_NAME } from '@/lib/constants';
 
 // UI Components
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
+
+export const metadata: Metadata = {
+  title: `${SITE_NAME} — Free Online Image Tools. No Upload. No Server.`,
+  description: 'Compress, resize, crop, and convert images instantly in your browser. 100% free, 100% private. Supports UPSC, SSC, NEET, passport, and visa photo compliance formats.',
+  alternates: {
+    canonical: BASE_URL,
+  },
+};
 
 export default function Home() {
   return (
@@ -100,6 +109,101 @@ export default function Home() {
         </div>
       </Container>
 
+      {/* ── How It Works ── */}
+      <div className="bg-white border-y-4 border-black w-full">
+        <Container className="py-20">
+          <h2 className="text-4xl font-extrabold font-[family-name:var(--font-heading)] text-center mb-4 text-gray-900">
+            How It Works
+          </h2>
+          <p className="text-center text-lg text-gray-600 font-medium mb-12 max-w-2xl mx-auto">
+            No accounts. No uploads. No waiting. Every image operation happens entirely inside your browser using the same technology that powers modern web applications.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              {
+                step: '01',
+                icon: '📁',
+                title: 'Upload Your Image',
+                desc: 'Drag and drop or click to select your image. The file is loaded directly into browser memory — it is never sent over the internet.',
+              },
+              {
+                step: '02',
+                icon: '⚙️',
+                title: 'Process Locally',
+                desc: "Our HTML5 Canvas engine and Web Worker algorithms run the operation (compress, resize, convert) entirely on your device's CPU. No server round-trip.",
+              },
+              {
+                step: '03',
+                icon: '⬇️',
+                title: 'Download Instantly',
+                desc: 'The processed image is generated as a local file download. Nothing is stored. Once you close the tab, even the browser has no copy of your file.',
+              },
+            ].map((item) => (
+              <div key={item.step} className="flex flex-col items-center text-center bg-surface-alt border-4 border-black p-8 shadow-brutal relative">
+                <span className="absolute -top-5 -left-3 bg-primary text-white font-extrabold text-2xl w-10 h-10 flex items-center justify-center border-4 border-black">
+                  {item.step}
+                </span>
+                <div className="text-5xl mb-4">{item.icon}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-gray-600 font-medium leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </div>
+
+      {/* ── Why ImageFix ── */}
+      <Container className="py-20">
+        <h2 className="text-4xl font-extrabold font-[family-name:var(--font-heading)] text-center mb-4 text-gray-900">
+          Why ImageFix?
+        </h2>
+        <p className="text-center text-lg text-gray-600 font-medium mb-12 max-w-2xl mx-auto">
+          Hundreds of image tools exist online. Here is what makes ImageFix different — and why it matters for your specific use case.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {[
+            {
+              icon: '🎯',
+              title: 'Precision Target Compression',
+              desc: 'Most tools compress to a fixed quality level. Ours uses a binary-search algorithm to find the exact quality that hits your target file size (20KB, 50KB, 100KB) — not just "close enough."',
+            },
+            {
+              icon: '📋',
+              title: 'Government-Spec Compliance Tools',
+              desc: "Pre-configured tools for UPSC, SSC, IBPS, NEET, JEE, Indian passport, US visa, Schengen visa, PAN card, and more — encoding official requirements so you don't have to look them up.",
+            },
+            {
+              icon: '🔒',
+              title: 'Absolute Privacy',
+              desc: 'Your passport photo, ID scan, or sensitive document never leaves your device. This is architecturally guaranteed — we have no server infrastructure to receive your files.',
+            },
+            {
+              icon: '📱',
+              title: 'Works on Any Device',
+              desc: 'No app downloads. No account. Works on Android, iPhone, Windows, Mac, and Linux. If your browser is modern, ImageFix will work — including on low-end devices.',
+            },
+            {
+              icon: '⚡',
+              title: 'Instant Results',
+              desc: 'Because there are no uploads or server queues, processing is instant. Most operations complete in under two seconds, even on mobile devices.',
+            },
+            {
+              icon: '💰',
+              title: 'Completely Free, Always',
+              desc: 'No freemium tiers. No watermarks. No daily limits. No credit card required. ImageFix is free because we believe access to these utilities should be universal.',
+            },
+          ].map((item) => (
+            <div key={item.title} className="flex gap-4 bg-white border-4 border-black p-6 shadow-brutal-sm hover:shadow-brutal transition-all">
+              <div className="text-3xl flex-shrink-0">{item.icon}</div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-1">{item.title}</h3>
+                <p className="text-gray-600 font-medium text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Container>
+
       {/* ── All Tools List ── */}
       <div className="bg-surface-alt border-t-4 border-black w-full">
         <Container className="py-20">
@@ -133,6 +237,29 @@ export default function Home() {
           </div>
         </Container>
       </div>
+
+      {/* ── About Blurb (SEO content) ── */}
+      <Container className="py-20">
+        <div className="max-w-3xl mx-auto bg-white border-4 border-black shadow-brutal p-8 space-y-4">
+          <h2 className="text-3xl font-extrabold font-[family-name:var(--font-heading)] text-gray-900 border-b-4 border-black pb-2 inline-block">
+            About ImageFix
+          </h2>
+          <p className="text-lg text-gray-700 font-medium leading-relaxed">
+            ImageFix was built by a developer who watched a close friend miss a government exam deadline because his photo was 8KB too large. That moment became a mission: to build the most reliable, private, and precise image formatting tool on the web.
+          </p>
+          <p className="text-lg text-gray-700 font-medium leading-relaxed">
+            Today, ImageFix serves students applying to UPSC, SSC, IBPS, NEET, and JEE; travellers formatting photos for US, UK, Schengen, and Indian passports; and web developers optimizing images for performance. Every tool is pre-configured with official government specifications, updated whenever requirements change.
+          </p>
+          <div className="flex gap-4 flex-wrap pt-2">
+            <Link href="/about">
+              <Button variant="outline">Our Full Story →</Button>
+            </Link>
+            <Link href="/blog">
+              <Button variant="outline">Read Our Guides →</Button>
+            </Link>
+          </div>
+        </div>
+      </Container>
     </>
   );
 }
